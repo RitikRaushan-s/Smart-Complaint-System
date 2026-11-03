@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e1b2a">
+  <title>Student Grievance Portal | Sarala Birla University</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body data-page="student">
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Sarala Birla University Home">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 12.5L4.5 10.5 3 11.18v4.32C3 18.5 7 21 12 21s9-2.5 9-5.5v-4.32l-1.5-.68L12 14.5z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">Sarala Birla University</span>
+        <span class="brand-subtitle">Student Support Desk</span>
+      </div>
+    </a>
+    <nav class="top-nav">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <button class="button button-secondary button-small" data-action="logout">Sign Out</button>
+    </nav>
+  </header>
+
+  <!-- Main View Panel -->
+  <main class="view-panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Student Dashboard</p>
+        <h1 id="student-greeting">Welcome, Student</h1>
+        <p>File a new maintenance issue, track current resolutions, or verify closed reports.</p>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="button button-secondary button-small" data-action="refresh-student">↻ Refresh Reports</button>
+      </div>
+    </div>
+
+    <!-- Student Dashboard Layout -->
+    <div class="student-grid">
+
+      <!-- Left Column: Grievance Submission Form -->
+      <section class="form-card">
+        <div style="margin-bottom:20px;">
+          <p class="eyebrow">New Complaint</p>
+          <h2>File a Campus Issue</h2>
+          <p>Please provide specific location details for quick departmental dispatch.</p>
+        </div>
+
+        <form id="complaint-form">
+          <div class="form-group">
+            <label for="location">Campus Location Area *</label>
+            <select id="location" name="location" required>
+              <option value="">Choose location area...</option>
+              <option>Classroom</option>
+              <option>Computer lab</option>
+              <option>Corridor</option>
+              <option>Library</option>
+              <option>Washroom</option>
+              <option>Cafeteria</option>
+              <option>Hostel</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="building">Building / Block Name <small>(optional)</small></label>
+            <input type="text" id="building" name="building" maxlength="120" placeholder="e.g. Academic Block 1, Ramanujan Wing">
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+            <div class="form-group">
+              <label for="floor">Floor <small>(optional)</small></label>
+              <input type="text" id="floor" name="floor" maxlength="40" placeholder="e.g. 2nd Floor">
+            </div>
+            <div class="form-group">
+              <label for="room">Room / Unit <small>(optional)</small></label>
+              <input type="text" id="room" name="room" maxlength="80" placeholder="e.g. Lab 204">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <label for="category" style="margin:0;">Issue Category *</label>
+              <span id="dept-hint" style="font-size:0.75rem; font-weight:600; color:var(--brand-teal);"></span>
+            </div>
+            <select id="category" name="category" required>
+              <option value="">Select issue category...</option>
+              <option>Facilities</option>
+              <option>Electrical</option>
+              <option>Cleanliness</option>
+              <option>Furniture</option>
+              <option>Internet / IT</option>
+              <option>Safety</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority" required>
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Detailed Description *</label>
+            <textarea id="description" name="description" placeholder="Describe what is broken, when it started, and any specific identifiers..." required minlength="10" maxlength="4000"></textarea>
+            <div class="char-counter" id="description-counter">0 / 4000</div>
+          </div>
+
+          <!-- Photo Evidence Attachment -->
+          <div class="form-group">
+            <label>Photo Evidence <small>(optional, max 2MB)</small></label>
+            <div class="upload-dropzone">
+              <input type="file" id="image-file" accept="image/*" aria-label="Upload photo evidence">
+              <div class="upload-icon">📷</div>
+              <div class="upload-title">Click or drop an image to upload</div>
+              <div class="upload-hint">PNG, JPG or WebP up to 2MB</div>
+            </div>
+            <input type="hidden" name="image" id="image-data-url">
+            <div id="image-preview" class="image-preview-card" style="display:none;">
+              <img id="image-preview-img" class="image-preview-thumb" alt="Evidence Preview">
+              <div style="flex:1;">
+                <strong style="font-size:0.85rem; display:block;">Photo attached</strong>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Will be sent with complaint</span>
+              </div>
+              <button type="button" class="button button-secondary button-small" id="remove-image-btn">Remove</button>
+            </div>
+          </div>
+
+          <!-- Anonymous Submission Toggle -->
+          <div class="form-group" style="background:var(--bg-primary); padding:14px; border-radius:var(--radius-sm); border:1px solid var(--border-light);">
+            <label class="checkbox-label" for="anonymous">
+              <input type="checkbox" id="anonymous" name="anonymous">
+              <div>
+                <strong>Submit as Anonymous Report</strong>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">
+                  Your name and registration number will be completely hidden from staff and technicians.
+                </p>
+              </div>
+            </label>
+          </div>
+
+          <button class="button button-primary" type="submit" style="width:100%; padding:12px; margin-top:8px;">
+            Submit Campus Grievance
+          </button>
+          <p class="form-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- Right Column: My Grievances History -->
+      <section class="list-card">
+        <div class="list-head-toolbar">
+          <div>
+            <p class="eyebrow">Tracking & History</p>
+            <h2>Your Filed Reports (<span id="student-total" style="color:var(--brand-teal);">0</span>)</h2>
+            <p>Select any card to view resolution notes or rate service quality.</p>
+          </div>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="search-filter-row">
+          <div class="search-input-wrap">
+            <span class="search-icon-placeholder">🔍</span>
+            <input id="student-search" type="search" placeholder="Filter by code, category, or keyword..." aria-label="Search my complaints">
+          </div>
+          <select id="student-status-filter" style="width:auto; min-width:140px;" aria-label="Filter by status">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="in_review">In Review</option>
+            <option value="in_progress">In Progress</option>
+            <option value="resolved">Resolved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <button class="button button-secondary button-small" data-action="clear-student-filters" title="Reset filters">Clear</button>
+        </div>
+
+        <!-- Complaints List Container -->
+        <div id="student-complaints" class="complaint-list" aria-live="polite">
+          <p style="text-align:center; padding:30px; color:var(--text-muted);">Loading your reports...</p>
+        </div>
+
+        <!-- Pagination -->
+        <nav class="pagination" style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; padding-top:16px; border-top:1px solid var(--border-light);">
+          <button class="button button-secondary button-small" data-action="student-prev" disabled>Previous</button>
+          <span id="student-page-label" style="font-size:0.85rem; font-weight:600; color:var(--text-muted);">Page 1 of 1</span>
+          <button class="button button-secondary button-small" data-action="student-next" disabled>Next</button>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <!-- Interactive Detail Dialog -->
+  <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-head">
+      <h2 id="dialog-title">Grievance Overview & Resolution</h2>
+      <button data-action="close-dialog" class="icon-button" aria-label="Close dialog">×</button>
+    </div>
+    <div id="detail-content"></div>
+  </dialog>
+
+  <!-- Toast Notification Box -->
+  <div id="global-message" class="global-message" role="status" aria-live="polite"></div>
+
+  <!-- Official Footer -->
+  <footer>
+    <span>© Sarala Birla University • Student Support & Grievance Cell</span>
+    <div>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms & Conditions</a>
+    </div>
+  </footer>
+
+</body>
+</html>

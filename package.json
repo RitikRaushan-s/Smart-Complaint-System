@@ -1,0 +1,31 @@
+{
+  "name": "college-complaint-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A private complaint tracking portal for a college community.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "admin:create": "node src/create-admin.js",
+    "password:reset": "node src/reset-password.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-mysql-session": "^3.0.3",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "helmet": "^8.0.0",
+    "mysql2": "^3.23.1"
+  },
+  "overrides": {
+    "express-mysql-session": {
+      "mysql2": "3.23.1"
+    }
+  }
+}

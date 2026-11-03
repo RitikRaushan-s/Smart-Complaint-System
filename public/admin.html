@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e1b2a">
+  <title>Staff Operations & Grievance Dispatch | Sarala Birla University</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body data-page="admin" class="portal-page admin-page">
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Sarala Birla University Home">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 12.5L4.5 10.5 3 11.18v4.32C3 18.5 7 21 12 21s9-2.5 9-5.5v-4.32l-1.5-.68L12 14.5z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">Sarala Birla University</span>
+        <span class="brand-subtitle">Staff Grievance Desk</span>
+      </div>
+    </a>
+    <nav class="top-nav">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="/privacy.html" class="nav-link">Privacy</a>
+      <a href="/terms.html" class="nav-link">Terms</a>
+      <button class="button button-secondary button-small" data-action="logout">Sign Out</button>
+    </nav>
+  </header>
+
+  <!-- Admin Main Dashboard -->
+  <main class="view-panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Campus Operations Desk</p>
+        <h1>Campus Grievance Management</h1>
+        <p>Review reports, assign maintenance wings, and post real-time updates for students.</p>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <button class="button button-secondary button-small" id="toggle-analytics-btn" data-action="toggle-analytics">View Analytics</button>
+        <button class="button button-primary button-small" data-action="export-admin-csv">Export CSV</button>
+      </div>
+    </div>
+
+    <!-- Analytics Dashboard View (Collapsible) -->
+    <section id="analytics-section" style="display:none; margin-bottom:32px;">
+      <div style="margin-bottom:14px;">
+        <p class="eyebrow">Real-Time Insights</p>
+        <h2>Departmental Breakdown & Resolution Satisfaction</h2>
+      </div>
+      <div class="analytics-grid" id="analytics-container">
+        <!-- Dynamically populated via app.js -->
+      </div>
+    </section>
+
+    <!-- Stat Grid Shortcuts -->
+    <div class="stat-grid" aria-label="Complaint status filter shortcuts">
+      <article class="stat-card">
+        <button type="button" data-status-shortcut="pending">Pending</button>
+        <strong id="pending-count" style="color:var(--status-pending-text);">0</strong>
+        <small>Awaiting triage</small>
+      </article>
+      <article class="stat-card">
+        <button type="button" data-status-shortcut="in_review">In Review</button>
+        <strong id="in-review-count" style="color:var(--status-review-text);">0</strong>
+        <small>Under inspection</small>
+      </article>
+      <article class="stat-card">
+        <button type="button" data-status-shortcut="in_progress">In Progress</button>
+        <strong id="in-progress-count" style="color:var(--status-progress-text);">0</strong>
+        <small>Maintenance active</small>
+      </article>
+      <article class="stat-card">
+        <button type="button" data-status-shortcut="resolved">Resolved</button>
+        <strong id="resolved-count" style="color:var(--status-resolved-text);">0</strong>
+        <small>Work completed</small>
+      </article>
+      <article class="stat-card">
+        <button type="button" data-status-shortcut="rejected">Rejected</button>
+        <strong id="rejected-count" style="color:var(--status-rejected-text);">0</strong>
+        <small>Closed without action</small>
+      </article>
+      <article class="stat-card">
+        <button type="button" data-status-shortcut="">Total Filed</button>
+        <strong id="total-count">0</strong>
+        <small>All categories</small>
+      </article>
+    </div>
+
+    <!-- Management List & Filter Card -->
+    <section class="list-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:20px;">
+        <div>
+          <h2>All Campus Grievance Tickets</h2>
+          <p style="color:var(--text-muted); font-size:0.88rem;">Click on any ticket to update its department assignment, change status, or post an inspection note.</p>
+        </div>
+        <div>
+          <button class="button button-secondary button-small" data-action="refresh-admin">↻ Refresh Data</button>
+        </div>
+      </div>
+
+      <!-- Filters Panel -->
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:12px; background:var(--bg-primary); padding:16px; border-radius:var(--radius-sm); border:1px solid var(--border-light); margin-bottom:20px;">
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Search Keyword</label>
+          <input id="admin-search" type="search" placeholder="Code, student, or room...">
+        </div>
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Workflow Status</label>
+          <select id="status-filter">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="in_review">In Review</option>
+            <option value="in_progress">In Progress</option>
+            <option value="resolved">Resolved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Priority</label>
+          <select id="priority-filter">
+            <option value="">All Priorities</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Category</label>
+          <select id="category-filter">
+            <option value="">All Categories</option>
+            <option>Facilities</option>
+            <option>Electrical</option>
+            <option>Cleanliness</option>
+            <option>Furniture</option>
+            <option>Internet / IT</option>
+            <option>Safety</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Location Area</label>
+          <select id="location-filter">
+            <option value="">All Locations</option>
+            <option>Classroom</option>
+            <option>Computer lab</option>
+            <option>Corridor</option>
+            <option>Library</option>
+            <option>Washroom</option>
+            <option>Cafeteria</option>
+            <option>Hostel</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Date From</label>
+          <input id="date-from-filter" type="date">
+        </div>
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Date To</label>
+          <input id="date-to-filter" type="date">
+        </div>
+        <div>
+          <label style="font-size:0.75rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:4px;">Sort Order</label>
+          <select id="admin-sort-filter">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="priority">Priority First</option>
+          </select>
+        </div>
+        <div style="display:flex; align-items:flex-end;">
+          <button class="button button-secondary button-small" data-action="clear-admin-filters" style="width:100%; height:38px;">Reset Filters</button>
+        </div>
+      </div>
+
+      <p id="admin-results-summary" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;" aria-live="polite"></p>
+
+      <!-- Table View -->
+      <div class="table-wrap">
+        <table class="complaint-table">
+          <thead>
+            <tr>
+              <th>Tracking Code</th>
+              <th>Student Profile</th>
+              <th>Campus Location</th>
+              <th>Assigned Wing</th>
+              <th>Workflow Status</th>
+              <th>Priority</th>
+              <th>Student Rating</th>
+              <th>Submitted At</th>
+            </tr>
+          </thead>
+          <tbody id="admin-complaints" aria-live="polite">
+            <tr><td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">Loading complaints data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <nav class="pagination" style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:16px; border-top:1px solid var(--border-light);">
+        <button class="button button-secondary button-small" data-action="admin-prev" disabled>Previous</button>
+        <span id="admin-page-label" style="font-size:0.85rem; font-weight:600; color:var(--text-muted);">Page 1 of 1</span>
+        <button class="button button-secondary button-small" data-action="admin-next" disabled>Next</button>
+      </nav>
+    </section>
+  </main>
+
+  <!-- Admin Detail Modal -->
+  <dialog id="detail-dialog" class="detail-dialog">
+    <div class="dialog-head">
+      <h2>Ticket Dispatch & Resolution</h2>
+      <button class="icon-button" data-action="close-dialog" aria-label="Close">×</button>
+    </div>
+    <div id="detail-content"></div>
+  </dialog>
+
+  <div id="global-message" class="global-message" role="status" aria-live="polite"></div>
+
+  <footer>
+    <span>© Sarala Birla University Smart Grievance Portal • Operations Management</span>
+    <div>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms & Conditions</a>
+    </div>
+  </footer>
+
+</body>
+</html>

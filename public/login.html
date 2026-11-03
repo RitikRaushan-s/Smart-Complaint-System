@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e1b2a">
+  <title>Sign In | Sarala Birla University </title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body data-page="login">
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Sarala Birla University Home">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 12.5L4.5 10.5 3 11.18v4.32C3 18.5 7 21 12 21s9-2.5 9-5.5v-4.32l-1.5-.68L12 14.5z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-title">Sarala Birla University</span>
+        <span class="brand-subtitle">Smart Complaint & Support System</span>
+      </div>
+    </a>
+    <nav class="top-nav">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="/register.html" class="button button-primary button-small">Student Register</a>
+    </nav>
+  </header>
+
+  <!-- Main Auth Container -->
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="brand-header">
+        <div class="brand-icon" style="width:48px; height:48px; font-size:1.4rem;">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 12.5L4.5 10.5 3 11.18v4.32C3 18.5 7 21 12 21s9-2.5 9-5.5v-4.32l-1.5-.68L12 14.5z"/>
+          </svg>
+        </div>
+        <p class="eyebrow" style="margin-top:10px;">Portal Authentication</p>
+        <h2>Welcome Back</h2>
+        <p class="subtitle" style="margin-bottom:0;">Sign in to your dashboard</p>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">University Email Address</label>
+          <input type="email" id="email" name="email" placeholder="name@sbu.ac.in" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <label for="password" style="margin:0;">Password</label>
+          </div>
+          <div style="position:relative; display:flex; align-items:center;">
+            <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="••••••••" style="padding-right: 68px;">
+            <button type="button" data-toggle-password="#password" aria-controls="password" aria-pressed="false" style="position:absolute; right:12px; background:none; border:none; color:var(--brand-teal); font-size:0.78rem; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:0.04em;">Show</button>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+          <label class="checkbox-label" for="remember-email" style="font-size:0.82rem;">
+            <input type="checkbox" id="remember-email">
+            <span>Remember my email</span>
+          </label>
+        </div>
+
+        <button class="button button-primary" type="submit" style="width:100%; padding:11px;">
+          Sign In to Portal
+        </button>
+
+        <p class="form-message" aria-live="polite"></p>
+      </form>
+
+      <div class="auth-footer">
+        New student at Sarala Birla University? <br>
+        <a href="/register.html" style="font-weight:600; color:var(--brand-teal);">Create your student account</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification Box -->
+  <div id="global-message" class="global-message" role="status" aria-live="polite"></div>
+
+  <!-- Official Footer -->
+  <footer>
+    <span>© Sarala Birla University • Grievance Redressal Portal</span>
+    <div>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms & Conditions</a>
+    </div>
+  </footer>
+
+</body>
+</html>

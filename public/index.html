@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Complaint Portal | Sarala Birla University</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body data-page="home">
+
+  <!-- Header -->
+  <header class="site-header">
+    <a class="brand" href="/">
+      <div class="brand-icon">S</div>
+      <div class="brand-text">
+        <span class="brand-title">Sarala Birla University</span>
+        <span class="brand-subtitle">Campus Complaint Portal</span>
+      </div>
+    </a>
+    <nav class="top-nav">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="/login.html" class="nav-link">Login</a>
+      <a href="/register.html" class="button button-primary button-small">Register</a>
+    </nav>
+  </header>
+
+  <!-- Hero Content -->
+  <main style="padding: 60px 5% 40px; max-width: 1000px; margin: 0 auto; width: 100%; text-align: center;">
+    <h1 style="font-size: 2.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 16px; letter-spacing: -0.02em;">
+      Campus Complaint Management System
+    </h1>
+    <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 620px; margin: 0 auto 32px; line-height: 1.6;">
+      An online portal for Sarala Birla University students to submit campus facility, maintenance, and IT issues directly to the administration and track their resolution.
+    </p>
+
+    <!-- Action Buttons -->
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px;">
+      <a href="/login.html" class="button button-primary button-large">Login to Portal</a>
+      <a href="/register.html" class="button button-secondary button-large">Register as Student</a>
+    </div>
+
+    <!-- 3 Simple Workflow Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; text-align: left; margin-bottom: 64px;">
+      <div class="card" style="padding: 24px;">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px; color: var(--text-main);">1. Submit a Report</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.55;">
+          Select the location, category, and priority of the issue. You can attach photo evidence and report anonymously.
+        </p>
+      </div>
+
+      <div class="card" style="padding: 24px;">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px; color: var(--text-main);">2. Track Resolution</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.55;">
+          Each complaint gets a tracking code. Follow real-time progress from review to work in-progress and completion.
+        </p>
+      </div>
+
+      <div class="card" style="padding: 24px;">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px; color: var(--text-main);">3. Rate & Reopen</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.55;">
+          Once resolved, rate the resolution quality (1 to 5 stars) or request a reopen if the issue persists.
+        </p>
+      </div>
+    </div>
+
+    <!-- Basic Categories Handled -->
+    <section style="text-align: left; margin-bottom: 64px;">
+      <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main);">What Can You Report?</h2>
+      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 24px;">Common campus issues covered under this redressal system:</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div class="card" style="padding: 20px;">
+          <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">Classrooms & Labs</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Damaged desks, benches, smart boards, laboratory wiring, and computer terminals.</p>
+        </div>
+
+        <div class="card" style="padding: 20px;">
+          <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">Hostels & Mess</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Room repairs, water geysers, dining mess hygiene, laundry, and hostel facilities.</p>
+        </div>
+
+        <div class="card" style="padding: 20px;">
+          <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">Campus WiFi & IT</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Internet access issues, slow bandwidth, portal errors, and lab network connections.</p>
+        </div>
+
+        <div class="card" style="padding: 20px;">
+          <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">Sanitation & Water</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Washroom cleanliness, drinking water RO purifiers, and campus waste disposal.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Basic FAQs -->
+    <section style="text-align: left; margin-bottom: 64px;">
+      <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main);">Frequently Asked Questions</h2>
+      <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 20px;">Common questions about using the portal:</p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <details class="card" style="padding: 16px 20px; cursor: pointer;">
+          <summary style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">Can I submit a complaint anonymously?</summary>
+          <p style="margin-top: 10px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+            Yes. When filing an issue, check the "Submit as Anonymous Report" option. Your name and roll number will be hidden from staff and technicians, but you will still be able to track the complaint from your dashboard.
+          </p>
+        </details>
+
+        <details class="card" style="padding: 16px 20px; cursor: pointer;">
+          <summary style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">How do I check the status of my complaint?</summary>
+          <p style="margin-top: 10px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+            Sign in to your student account and click on any report card. You will see a step-by-step progress tracker, assigned department, and update remarks posted by maintenance supervisors.
+          </p>
+        </details>
+
+        <details class="card" style="padding: 16px 20px; cursor: pointer;">
+          <summary style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">What if the issue is not fixed properly?</summary>
+          <p style="margin-top: 10px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+            If an issue is marked resolved but is still not working, open the complaint details and select "Issue persists? Request Reopen". Provide a brief explanation and it will be sent back for review.
+          </p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Normal Footer -->
+  <footer>
+    <span>© Sarala Birla University • Campus Support Portal</span>
+    <div>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms & Conditions</a>
+    </div>
+  </footer>
+
+</body>
+</html>
